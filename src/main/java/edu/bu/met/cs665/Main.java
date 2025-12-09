@@ -123,6 +123,7 @@ public class Main {
             .setPaymentMethod("Credit Card")
             .build();
             
+        System.out.println("The insurance bill is due January 10, 2026.");
         System.out.println("Insurance Initial State: " + insurance.getCurrentState().getClass().getSimpleName());
 
         // Simulate day check when it's DUE SOON (Jan 5th)
