@@ -27,6 +27,6 @@ public class PaidState implements ExpenseState {
     @Override
     public void handleDateCheck(Expense expense, LocalDate today) {
         // A paid bill does not change state based on the date
-        // Note: For recurring bills, this paid instance is complete, and the system would generate the next instance.
+        // Note: future work for recurring expenses could be added here
     }
 }
