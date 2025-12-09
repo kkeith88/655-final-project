@@ -1,0 +1,93 @@
+@startuml ExpenseTrackerFinalRefined
+
+skinparam dpi 150
+title Expense Tracker: Core Patterns & Data Flow
+
+skinparam class {
+    BackgroundColor #f6f6e3ff
+    BorderColor #888800
+}
+skinparam interface {
+    BackgroundColor #DDEEFF
+    BorderColor #0077AA
+}
+hide circle
+
+class Expense {
+    - final String name
+    - final double amount
+    - final LocalDate initialDueDate
+    - final String category
+    - final String paymentMethod
+    - final String recurrenceType
+    --
+    - ExpenseState currentState
+    + setState(ExpenseState)
+    + markAsPaid()
+    + checkDueDate(LocalDate)
+}
+
+interface ExpenseBuilder <<Interface>> {
+    + setName(String) : ExpenseBuilder
+    + setAmount(double) : ExpenseBuilder
+    + setDueDate(LocalDate) : ExpenseBuilder
+    + setCategory(String) : ExpenseBuilder
+    + setRecurrenceType(String) : ExpenseBuilder
+    + setPaymentMethod(String) : ExpenseBuilder
+    + build() : Expense
+}
+
+class ConcreteExpenseBuilder {
+    - String name
+    - double amount
+    - LocalDate initialDueDate
+    - String category
+    - String paymentMethod
+    - String recurrenceType
+    + setName(String) : ExpenseBuilder
+    + setAmount(double) : ExpenseBuilder
+    + setDueDate(LocalDate) : ExpenseBuilder
+    + setCategory(String) : ExpenseBuilder
+    + setRecurrenceType(String) : ExpenseBuilder
+    + setPaymentMethod(String) : ExpenseBuilder
+    + build() : Expense
+}
+
+ExpenseBuilder <.up. ConcreteExpenseBuilder
+
+ConcreteExpenseBuilder ..> Expense : creates >
+
+interface ExpenseState <<Interface>> {
+    + handlePayment(Expense expense)
+    + handleDateCheck(Expense expense, LocalDate today)
+}
+
+class UpcomingState
+class DueSoonState
+class OverdueState
+class PaidState
+
+ExpenseState <.up. UpcomingState
+ExpenseState <.up. DueSoonState
+ExpenseState <.up. OverdueState
+ExpenseState <.up. PaidState
+
+Expense "1" *-- "1" ExpenseState
+
+class ExpenseRepository {
+    - static List<Expense> expenses
+    + static addExpense(Expense)
+    + static removeExpense(Expense)
+}
+
+class ExpenseFilterService {
+    + filterLastNDays(int days) : List<Expense>
+}
+
+' Dependencies of External Classes
+ConcreteExpenseBuilder .up.> ExpenseRepository : saves built object
+
+ExpenseFilterService .up.> ExpenseRepository : reads data >
+ExpenseFilterService .up.> Expense : uses data
+
+@enduml
