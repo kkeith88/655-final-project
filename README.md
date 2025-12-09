@@ -13,7 +13,7 @@ For my final project my goal was to create an expense tracker where someone coul
 Looking at the design patterns from the website, the one that stood out to me was the builder pattern. It seemed to fit my need of creating a "complex object". The complex object being an expense object. By using the builder pattern I can have more versatility when it comes to creating expense objects as well as more rigor with validation and error checking
 
 # GitHub Repository Link:
-https://github.com/kkeith88/cs-665-assignment-1
+https://github.com/kkeith88/655-final-project
 
 # Implementation Description 
 For each assignment, please answer the following:
