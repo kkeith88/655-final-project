@@ -44,7 +44,7 @@ public class TestExpense {
 
         // Assert (Verify all fields were set correctly)
         assertEquals("Internet Bill", expense.getName());
-        assertEquals(65.50, expense.getAmount(), 0.001); // Use delta for double comparison
+        assertEquals(65.50, expense.getAmount(), 0.001);
         assertEquals(dueDate, expense.getInitialDueDate());
         assertEquals("Utilities", expense.getCategory());
         assertEquals("Monthly", expense.getRecurrenceType());
